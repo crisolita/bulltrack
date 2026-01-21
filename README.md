@@ -1,98 +1,139 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+🐂 Bulltrack Pro – Backend API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Backend API for Bulltrack Pro, an advanced bovine genetic ranking platform.
+This project was developed as part of the Full-Stack Engineering Challenge (Level 2 – Robustness & Persistence) for Seed28.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+The main focus of this implementation is data integrity, scalability, server-side filtering, authentication, and persistence, following real-world backend best practices.
 
-## Description
+🚀 Tech Stack
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Node.js
 
-## Project setup
+NestJS
 
-```bash
-$ npm install
-```
+TypeScript
 
-## Compile and run the project
+Prisma ORM
 
-```bash
-# development
-$ npm run start
+PostgreSQL
 
-# watch mode
-$ npm run start:dev
+JWT Authentication
 
-# production mode
-$ npm run start:prod
-```
+Docker & Docker Compose
 
-## Run tests
+Swagger (OpenAPI)
+🧠 Core Features
+✅ Authentication
 
-```bash
-# unit tests
-$ npm run test
+JWT-based authentication
 
-# e2e tests
-$ npm run test:e2e
+Default seeded user for testing:
 
-# test coverage
-$ npm run test:cov
-```
+email: admin@seed28.com
+password: seed28
 
-## Deployment
+✅ Bulls Management
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Bulls are persisted in a PostgreSQL database
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Dynamic Bull Score calculation on the backend using a weighted formula:
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+Score = (C \* 0.30) + (F \* 0.25) + (R \* 0.20) + (M \* 0.15) + (Ca \* 0.10)
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+✅ Advanced Server-Side Filtering
 
-## Resources
+All filtering is handled at the API / database level, not in frontend state.
 
-Check out a few resources that may come in handy when working with NestJS:
+Supported filters:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Search by caravana or nombre
 
-## Support
+Origen: propio | catalogo | favoritos
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Pelaje: negro | colorado
 
-## Stay in touch
+Uso: vaca | vaquillona
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Sorting by bull score (high / low)
 
-## License
+User-specific favorites
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+✅ Pagination
+
+Server-side pagination
+
+Efficient queries using Prisma
+
+✅ Favorites
+
+Bulls can be marked as favorites
+
+Favorites are user-specific
+
+Many-to-many relationship via a Favorite table
+
+📦 Project Structure
+bulltrack-backend/
+├── prisma/
+│ ├── schema.prisma
+│ └── seed.ts
+├── src/
+│ ├── auth/
+│ ├── bulls/
+│ ├── favorites/
+│ ├── prisma/
+│ └── common/
+├── docker-compose.yml
+├── Dockerfile
+└── README.md
+
+🐳 Running the Project with Docker
+1️⃣ Environment variables
+
+Create a .env file:
+DATABASE_URL=postgresql://bulltrack:bulltrack@db:5432/bulltrack
+JWT_SECRET=supersecret
+
+2️⃣ Build and start containers
+docker compose build
+docker compose up -d
+
+3️⃣ Run database migrations
+docker compose exec api npx prisma migrate dev
+
+4️⃣ Seed the database
+docker compose exec api npx prisma db seed
+
+📚 API Documentation (Swagger)
+
+Swagger is enabled for easy API exploration.
+
+Once the API is running, access:
+
+http://localhost:3000/docs
+
+🧪 Validation & Error Handling
+
+DTO-based validation using class-validator
+
+Global validation pipe enabled
+
+Clear validation error messages for invalid query params
+
+Proper HTTP status codes and error handling
+
+🎯 Design Decisions
+
+All business logic (filters, score calculation, pagination) lives in the backend
+
+Prisma is used as the single source of truth for data access
+
+Dockerized setup to ensure environment consistency
+
+Prisma Studio intentionally excluded from Docker runtime (dev-only tool)
+
+Integration with this API
+
+👤 Author
+Crisol Cova
+Blockchain & Backend Developer
