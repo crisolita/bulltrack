@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+  moduleFormat    = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String     @id @default(uuid())
+  email     String     @unique
+  password  String
+  favorites Favorite[]
+  createdAt DateTime   @default(now())
+  updateAt DateTime    @updatedAt
+}
+model Favorite {
+  userId String
+  bullId String
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bull   Bull @relation(fields: [bullId], references: [id], onDelete: Cascade)
+
+    updateAt DateTime    @updatedAt
+  @@id([userId, bullId])
+
+}
+model Bull {
+  id                     String   @id @default(uuid())
+  caravana               String   @unique
+  nombre                 String
+  uso                    Uso
+  origen                 Origen
+  pelaje                 Pelaje
+  raza                   String
+  edadMeses              Int
+  caracteristicaDestacada String?
+  crecimiento            Int
+  facilidadParto         Int
+  reproduccion           Int
+  moderacion             Int
+  carcasa                Int
+
+  favorites               Favorite[]
+    updateAt DateTime    @updatedAt
+  createdAt              DateTime @default(now())
+}
+enum Uso {
+  vaca
+  vaquillona
+}
+
+ enum Origen {
+  propio
+  catalogo
+}
+
+enum Pelaje {
+  negro
+  colorado
+}
