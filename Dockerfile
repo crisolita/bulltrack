@@ -14,6 +14,9 @@ COPY . .
 # Prisma
 RUN npx prisma generate
 
+# Build Nest.js
+RUN npm run build
+
 # Nest corre en 3000
 EXPOSE 3000
 
