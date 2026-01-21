@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { GetBullsDto } from './dto/getBullsDto';
-import { Bull } from 'generated/prisma/browser';
+import { Bull, Prisma } from 'generated/prisma/browser';
 
 @Injectable()
 export class BullsService {
@@ -21,8 +21,7 @@ export class BullsService {
 
     const skip = (page - 1) * limit;
 
-    const where: any = {};
-
+    const where: Prisma.BullWhereInput = {};
     if (search) {
       where.OR = [
         { caravana: { contains: search, mode: 'insensitive' } },
@@ -42,7 +41,7 @@ export class BullsService {
       where.uso = uso;
     }
 
-    if (favoritos === true) {
+    if (favoritos) {
       where.favorites = {
         some: {
           userId,
@@ -63,6 +62,7 @@ export class BullsService {
       }),
       this.prisma.bull.count({ where }),
     ]);
+
     const sortedBulls =
       sort === 'high' || sort === 'low'
         ? this.sortBullsByScore(data, sort === 'low' ? 'asc' : 'desc')
@@ -81,6 +81,8 @@ export class BullsService {
       },
     };
   }
+
+  ///Given a bull, calculate its score based on attributes (weigthed sum)
   getScore(bull: Bull): number {
     return (
       bull.crecimiento * 0.3 +
@@ -90,6 +92,7 @@ export class BullsService {
       bull.carcasa * 0.1
     );
   }
+
   sortBullsByScore(bulls: Bull[], direction: 'asc' | 'desc' = 'desc') {
     return bulls.sort((a, b) => {
       const scoreA = this.getScore(a);
@@ -98,6 +101,7 @@ export class BullsService {
       return direction === 'asc' ? scoreA - scoreB : scoreB - scoreA;
     });
   }
+
   async markAsFavorite(bullId: string, userId: string) {
     const bullExists = await this.prisma.bull.findUnique({
       where: { id: bullId },
@@ -126,6 +130,7 @@ export class BullsService {
       },
     });
   }
+
   async deleteFavorite(bullId: string, userId: string) {
     const bullExists = await this.prisma.bull.findUnique({
       where: { id: bullId },

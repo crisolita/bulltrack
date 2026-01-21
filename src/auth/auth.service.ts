@@ -23,7 +23,7 @@ export class AuthService {
     const passwordMatch = await bcrypt.compare(authDto.password, user.password);
 
     if (!passwordMatch) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException('Wrong password');
     }
 
     const payload = { sub: user.id, email: user.email };
