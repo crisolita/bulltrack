@@ -1,13 +1,13 @@
 version: '3.9'
 
 services:
-  db:
-    image: postgres:15
-    container_name: bulltrack-db
+  postgres:
+    image: postgres:16
+    container_name: bulltrack-postgres
     restart: always
     environment:
-      POSTGRES_USER: bulltrack
-      POSTGRES_PASSWORD: bulltrack
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: bulltrack
     ports:
       - '5432:5432'
@@ -15,21 +15,19 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   api:
-    build:
-      context: ./bulltrack-backend
+    build: .
     container_name: bulltrack-api
     restart: always
-    env_file:
-      - ./bulltrack-backend/.env
+    depends_on:
+      - postgres
     ports:
       - '3000:3000'
-    depends_on:
-      - db
-    command: >
-      sh -c "
-      npx prisma migrate deploy &&
-      node dist/main.js
-      "
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run start:dev
 
 volumes:
   postgres_data:
