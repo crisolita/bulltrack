@@ -17,4 +17,4 @@ RUN npx prisma generate
 # Nest corre en 3000
 EXPOSE 3000
 
-CMD ["node", "dist/main.js"]
+CMD ["npm", "run", "start:prod"]
