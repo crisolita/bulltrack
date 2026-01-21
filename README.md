@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Bulltrack Pro – Backend API</title>
 </head>
 <body>
 
