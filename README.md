@@ -13,6 +13,7 @@
     <strong>Full-Stack Engineering Challenge (Level 2 – Robustness & Persistence)</strong>
     for <strong>Seed28</strong>.
   </p>
+  <p>Live API docs available at: <a href='https://bulltrack-production.up.railway.app/docs'>https://bulltrack-production.up.railway.app/docs</a></p>
 
   <p>
     The main focus of this implementation is data integrity, scalability,
@@ -153,7 +154,7 @@ npx prisma studio
     Swagger documentation is enabled for easy API exploration.
   </p>
   <p>
-    <strong>URL:</strong> <code>http://localhost:3000/api</code>
+    <strong>URL:</strong> <code>http://localhost:3000/docs</code>
   </p>
 
   <hr />
