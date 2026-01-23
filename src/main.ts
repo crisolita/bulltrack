@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import session from 'express-session';
 
@@ -15,7 +14,6 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  app.use(cookieParser());
   app.use(
     cors({
       origin: [process.env.FRONTEND_URL],
