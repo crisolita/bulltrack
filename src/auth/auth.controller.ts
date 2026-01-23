@@ -28,4 +28,23 @@ export class AuthController {
   async login(@Body() authDto: AuthDto) {
     return this.authService.login(authDto);
   }
+  @Post('register')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Registro de usuario' })
+  @ApiResponse({
+    status: 200,
+    description: 'Registro exitoso',
+    schema: {
+      example: {
+        access_token: 'jwt.token.here',
+      },
+    },
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Credenciales inválidas',
+  })
+  async register(@Body() authDto: AuthDto) {
+    return this.authService.register(authDto);
+  }
 }

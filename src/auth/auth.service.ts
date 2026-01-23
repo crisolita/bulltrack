@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -31,5 +35,19 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+  async register(authDto: AuthDto) {
+    const hashedPassword = await bcrypt.hash(authDto.password ?? '', 10);
+    const email = authDto.email;
+    if (email) {
+      const user = await this.prisma.user.findUnique({ where: { email } });
+      if (!user) {
+        return await this.prisma.user.create({
+          data: { email, password: hashedPassword },
+        });
+      } else {
+        return new BadRequestException('Email ya esta registrado');
+      }
+    }
   }
 }
